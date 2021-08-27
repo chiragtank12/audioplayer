@@ -1,0 +1,94 @@
+.container {
+    .main-toolbar {
+      .spacer {
+        flex: 1 1 auto;
+      }
+      .toolbar-btn {
+        font-size: 16px;
+        margin-right: 5px;
+        cursor: pointer;
+      }
+    }
+  
+    .content {
+      .logo {
+        margin: 2.5rem;
+        text-align: center;
+        font-size: 24px;
+        color: #3f51b5;
+        .mat-icon {
+          height: 160px !important;
+          width: 160px !important;
+          font-size: 160px !important;
+        }
+      }
+    }
+  
+    .media-footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      .time-slider {
+        width: 100% !important;
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+      .media-action-bar {
+        width: 100%;
+        padding: 2.5rem;
+        justify-content: center;
+        position: relative;
+        .mat-icon {
+          height: 48px !important;
+          width: 48px !important;
+          font-size: 48px !important;
+        }
+      }
+    }
+  }
+  
+  .active {
+    background-color: gold;
+  }
+  .audio_list {
+    cursor: pointer !important;
+  }
+  .volums_up_down {
+    width: 25px;
+    margin-right: 10px;
+  }
+  
+  .volumn-setup-section {
+    position: absolute;
+    right: 36px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .song-playlist-fix-height {
+    overflow: auto;
+    height: calc(100vh - 517px);
+    margin-right: 10px;
+    /* width */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+  
+    /* Track */
+    &::-webkit-scrollbar-track {
+      // box-shadow: inset 0 0 5px grey;
+      border-radius: 3px;
+    }
+  
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #3f51b5;
+      border-radius: 3px;
+    }
+  
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #303e8c;
+    }
+  }
+  

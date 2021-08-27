@@ -1,0 +1,16 @@
+<mat-toolbar color="primary" class="main-toolbar">
+  <div class="space-between-header">
+    <div>
+      <span class="header-main-font">Audio Player</span>
+    </div>
+    <div>
+      <span class="toolbar-btn mx-2 c_p" routerLink="/player">Player </span>
+      <span class="toolbar-btn mx-2 c_p" routerLink="/player/tracks">Tracks </span>
+      <span class="toolbar-btn mx-2 c_p" routerLink="/player/discover">Discover</span>
+      <span class="toolbar-btn mx-2 c_p" routerLink="/player/feeds">Feeds</span>
+    </div>
+  </div>
+  <!-- <span class="toolbar-btn" *ngIf="!auth.authenticated" (click)="auth.login()">LOGIN </span>
+    <span class="toolbar-btn" *ngIf="auth.authenticated" (click)="auth.logout()">LOGOUT</span>
+    <span class="toolbar-btn" *ngIf="auth.authenticated" routerLink="/profile">PROFILE</span> -->
+</mat-toolbar>

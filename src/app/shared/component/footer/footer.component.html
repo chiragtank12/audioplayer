@@ -1,0 +1,115 @@
+<div class="media-footer" *ngIf="storageService.isShowFooter()">
+  <div class="bottomer-player-area">
+    <div class="left-section-player" > 
+      <img class="image-fixWidth" *ngIf="globalPlayerService?.currentFile.file!"
+        [src]="globalPlayerService?.currentFile.file?.img"
+        style="width: 125px; height: 125px"
+      />
+      
+    </div>
+    
+    <div class="right-section-player"> 
+      
+      {{globalPlayerService.state | json }}
+
+      <div class="name-area" *ngIf="globalPlayerService?.currentFile.file!">
+        <span>
+          {{ globalPlayerService?.currentFile.file.name }} |
+          {{ globalPlayerService?.currentFile.file.artist }}
+        </span>
+      </div>
+      <div class="upper-section-slider">
+        {{ globalPlayerService.state?.readableCurrentTime }}
+        <mat-slider
+          class="time-slider"
+          min="0"
+          [max]="globalPlayerService.state?.duration"
+          step="1"
+          [value]="globalPlayerService.state?.currentTime"
+          (input)="globalPlayerService.onSliderChangeEnd($event)"
+          [disabled]="
+            globalPlayerService.state?.error ||
+            globalPlayerService.currentFile.index === undefined
+          "
+          *ngIf="globalPlayerService?.currentFile.file!"
+        ></mat-slider>
+        {{ globalPlayerService.state?.readableDuration }}
+      </div>
+      <div class="lower-section-slider">
+        <div>
+          <button
+            mat-button
+            [disabled]="globalPlayerService.isFirstPlaying()"
+            (click)="globalPlayerService.previous()"
+          >
+            <mat-icon mat-list-icon>skip_previous</mat-icon>
+          </button>
+
+          <button
+            mat-button
+            (click)="globalPlayerService.play()"
+            [disabled]="globalPlayerService.state?.error"
+            *ngIf="!globalPlayerService.state?.playing"
+          >
+            <mat-icon mat-list-icon>play_circle_filled</mat-icon>
+          </button>
+
+          <button
+            mat-button
+            (click)="globalPlayerService.pause()"
+            *ngIf="globalPlayerService.state?.playing"
+          >
+            <mat-icon mat-list-icon>pause</mat-icon>
+          </button>
+
+          <button
+            mat-button
+            [disabled]="globalPlayerService.isLastPlaying()"
+            (click)="globalPlayerService.next()"
+          >
+            <mat-icon mat-list-icon>skip_next</mat-icon>
+          </button>
+        </div>
+        <div class="volumn-setup-section">
+          <button
+            mat-button
+            *ngIf="
+              !globalPlayerService.state?.isMute &&
+              globalPlayerService.state?.playing
+            "
+          >
+            <mat-icon
+              color="white"
+              title="Mute"
+              (click)="globalPlayerService.muteAudio()"
+              >volume_up</mat-icon
+            >
+          </button>
+          <button
+            mat-button
+            *ngIf="
+              globalPlayerService.state?.isMute &&
+              globalPlayerService.state?.playing
+            "
+          >
+            <mat-icon
+              color="white"
+              title="Un Mute"
+              (click)="globalPlayerService.unMuteAudio()"
+              >volume_off</mat-icon
+            >
+          </button>
+
+          <mat-slider
+            (change)="globalPlayerService.onChangeVolumeControl($event)"
+            *ngIf="globalPlayerService.state?.playing"
+            step="1"
+            min="0"
+            max="100"
+            [(ngModel)]="globalPlayerService.volumeUpDownNumber"
+          ></mat-slider>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

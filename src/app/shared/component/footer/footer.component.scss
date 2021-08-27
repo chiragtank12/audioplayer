@@ -1,0 +1,66 @@
+.active {
+  background-color: gold;
+}
+.audio_list {
+  cursor: pointer !important;
+}
+.volums_up_down {
+  width: 25px;
+  margin-right: 10px;
+}
+
+.volumn-setup-section {
+  position: absolute;
+  right: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.bottomer-player-area {
+  background: #3f51b5;
+  min-height: 100px;
+  display: grid;
+  grid-template-columns: 135px 1fr;
+  height: 125px;
+  color: white; 
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.upper-section-slider
+  mat-slider.time-slider.mat-slider.mat-accent.mat-slider-disabled.mat-slider-horizontal.mat-slider-min-value.mat-slider-hide-last-tick {
+  width: 100%;
+}
+
+.upper-section-slider {
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+  width: 99.5%;
+
+  .mat-slider-horizontal {
+    height: 48px;
+    width: calc(100% - 155px);
+  }
+}
+
+.lower-section-slider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right-section-player {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.image-fixWidth {
+  width: 100% !important;
+  height: 125px !important;
+  object-fit: cover;
+}

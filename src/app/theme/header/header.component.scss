@@ -1,0 +1,22 @@
+.space-between-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.mx-2 {
+    margin: 0 0.5rem !important;
+}
+
+span.header-main-font {
+    font-size: 2rem;
+}
+
+span.toolbar-btn {
+    font-size: 1.2rem;
+    font-weight: normal;
+}
+.c_p{
+    cursor: pointer;
+}

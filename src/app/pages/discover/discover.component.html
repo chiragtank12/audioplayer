@@ -1,0 +1,40 @@
+ <div class="container"> 
+  <div class="content">
+    <div class="logo">
+      <mat-icon>music_note</mat-icon>
+      <div>
+        <h1>Discover</h1>
+      </div>
+    </div>
+
+    <!-- <mat-list color="primary" [ngClass]="'audio_list'">
+      <h3 mat-subheader>Songs</h3>
+      <div class="song-playlist-fix-height">
+        <mat-list-item
+          (click)="discoverService.openFile(file, i)"
+          *ngFor="let file of discoverService.files; let i = index"
+          [ngClass]="
+            i === discoverService.currentFile.index ? 'active' : ''
+          "
+        >
+          <ng-container>
+            <mat-icon color="primary" mat-list-icon>music_note</mat-icon>
+            <h4 mat-line>{{ file.name }}</h4>
+            <h5 mat-line>by {{ file.artist }}</h5>
+
+            <h6
+              *ngIf="
+                discoverService.currentFile.index === i &&
+                discoverService.state?.error
+              "
+            >
+              ERROR
+            </h6>
+          </ng-container>
+          <mat-divider> </mat-divider>
+        </mat-list-item>
+      </div>
+    </mat-list> -->
+  </div> 
+</div>  
+
