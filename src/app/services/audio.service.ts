@@ -9,6 +9,9 @@ import { GlobalPlayerService } from './global-player.service';
   providedIn: 'root'
 })
 export class AudioService {
+  
+  currentSongIndex:number;
+  lastSongIndex:number;
   private stop$ = new Subject();
   public audioObj = new Audio();
   public isAutoPlayNextSong : EventEmitter<boolean> = new EventEmitter<boolean>(); 
@@ -130,12 +133,15 @@ export class AudioService {
         this.state.playing = false;
         break;
       case "ended": 
-        this.state.playing = false; 
-        this.nextSong();
+        this.state.playing = false;
+        
+        if(this.currentSongIndex  != this.lastSongIndex) {
+          this.nextSong();
+        }    
       case 'timeupdate':
         this.state.currentTime = this.audioObj.currentTime;
         this.state.readableCurrentTime = this.formatTime(this.state.currentTime);
-        break; 
+        break;  
       case 'error':  
         this.getError(event);
         this.resetState();
@@ -169,5 +175,5 @@ export class AudioService {
 
   getError(event:any):void{
     alert('error event');
-  }
+  } 
 }

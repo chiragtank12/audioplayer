@@ -57,7 +57,9 @@ export class GlobalPlayerService  {
 
   openFile(file, index, isDefault?:boolean) {  
     this.currentFile = { index, file }; 
-      this.audioService.stop();
+      this.audioService.stop(); 
+    this.audioService.currentSongIndex = index;
+    this.audioService.lastSongIndex = ( this.files.length!  ? (this.files.length - 1 ) : 0);
     this.playStream(file.url, isDefault);
   }
 
@@ -67,7 +69,7 @@ export class GlobalPlayerService  {
 
   play() {  
     const index =  this.currentFile.index || 0; 
-    const file = this.files[index];
+    const file = this.files[index]; 
     if(this.currentFile.index === undefined){
       this.openFile(file, index, true); 
     }

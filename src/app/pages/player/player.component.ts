@@ -28,7 +28,7 @@ import { GlobalPlayerService } from 'src/app/services/global-player.service';
   volumeUpDownNumber = 0; 
   tickInterval = 1;
  
-  constructor(private globalPlayerService:GlobalPlayerService){
+  constructor(public globalPlayerService:GlobalPlayerService){
   }
   // constructor(private audioService: AudioService, cloudService: CloudService,
   //   private globalPlayerService:GlobalPlayerService

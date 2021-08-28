@@ -26,8 +26,8 @@ export class FooterComponent implements OnInit {
     volumeUpDownNumber = 0; 
     tickInterval = 1;
    
-    constructor(private globalPlayerService:GlobalPlayerService,
-      private storageService:StorageService){
+    constructor(public globalPlayerService:GlobalPlayerService,
+      public storageService:StorageService){
     }
 
   ngOnInit() {
