@@ -10,7 +10,9 @@
     
     <div class="right-section-player"> 
       
-      {{globalPlayerService.state | json }}
+   <span *ngIf="globalPlayerService.state.isBuffering">   
+     Loading...
+  </span>
 
       <div class="name-area" *ngIf="globalPlayerService?.currentFile.file!">
         <span>

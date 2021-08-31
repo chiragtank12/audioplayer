@@ -21,7 +21,8 @@ export class AudioService {
   // ];
 
   audioEvents = [
-    'ended', 'error', 'play', 'playing', 'pause', 'timeupdate', 'canplay',   'loadedmetadata'
+    'ended', 'error', 'play',  'playing', 'pause', 'timeupdate', 'canplay',   'loadedmetadata',
+    'seeking','loadstart','canplaythrough', 'waiting'
   ];
 
 
@@ -39,6 +40,7 @@ export class AudioService {
     canplay: false,
     error: false,
     isMute: false,
+    isBuffering:false,
   };
 
   private streamObservable(url) {
@@ -120,11 +122,22 @@ export class AudioService {
 
   private updateStateEvents(event: Event): void {
     switch (event.type) {
-      
+      case 'loadstart':
+        this.isBuffering(event);
+        break; 
+      case 'seeking': 
+        break;
+      case 'canplaythrough':
+          this.isBuffering(event);
+          break; 
+      case 'waiting':
+            this.state.isBuffering = true;
+            this.isBuffering(event);
+            break; 
       case 'canplay':
         this.state.duration = this.audioObj.duration;
         this.state.readableDuration = this.formatTime(this.state.duration);
-        this.state.canplay = true;
+        this.state.canplay = true; 
         break;
       case 'playing':
         this.state.playing = true;
@@ -161,7 +174,8 @@ export class AudioService {
       currentTime: undefined,
       canplay: false,
       error: false,
-      isMute: false
+      isMute: false,
+      isBuffering:false
     };
   }
 
@@ -176,4 +190,15 @@ export class AudioService {
   getError(event:any):void{
     alert('error event');
   } 
+
+  isBuffering(event:any):void{ 
+    if(event.type === 'waiting' || event.type === 'loadstart'){
+      this.state.isBuffering = true;
+    }
+    else{
+      this.state.isBuffering = false;
+    }
+    this.stateChange.next(this.state);
+  } 
+
 }

@@ -7,4 +7,5 @@ export interface StreamState {
     canplay: boolean;
     error: boolean;
     isMute: boolean; 
+    isBuffering:boolean;
   }
