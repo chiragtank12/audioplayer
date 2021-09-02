@@ -8,4 +8,5 @@ export interface StreamState {
     error: boolean;
     isMute: boolean; 
     isBuffering:boolean;
+    progressBar:string;
   }

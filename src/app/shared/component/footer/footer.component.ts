@@ -22,8 +22,7 @@ export class FooterComponent implements OnInit {
     max = 100;
     min = 0; 
     step = 1;
-    thumbLabel = true;
-    volumeUpDownNumber = 0; 
+    thumbLabel = true; 
     tickInterval = 1;
    
     constructor(public globalPlayerService:GlobalPlayerService,

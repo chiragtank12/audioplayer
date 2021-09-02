@@ -4,6 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
 import { StreamState } from '../interfaces/stream-state'; 
 import { GlobalPlayerService } from './global-player.service';
+import { parse } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,8 @@ export class AudioService {
   // ];
 
   audioEvents = [
-    'ended', 'error', 'play',  'playing', 'pause', 'timeupdate', 'canplay',   'loadedmetadata',
-    'seeking','loadstart','canplaythrough', 'waiting'
+    'ended', 'error', 'play',  'playing', 'pause', 'timeupdate', 'canplay', 'loadedmetadata',
+    'seeking','loadstart','canplaythrough', 'waiting', 'progress'
   ];
 
 
@@ -41,6 +42,7 @@ export class AudioService {
     error: false,
     isMute: false,
     isBuffering:false,
+    progressBar:''
   };
 
   private streamObservable(url) {
@@ -51,6 +53,9 @@ export class AudioService {
       this.audioObj.play();
       
       const handler = (event: Event) => {   
+      //  debugger;
+      const Data = this.audioObj.buffered && this.audioObj.buffered.length ? (this.audioObj.buffered.end(0) || 0) :  0;
+    //  console.log(Data);
         this.updateStateEvents(event);
         observer.next(event);
       };
@@ -127,13 +132,16 @@ export class AudioService {
         break; 
       case 'seeking': 
         break;
+      case 'progress':
+        this.isBuffering(event);
+        break;
       case 'canplaythrough':
           this.isBuffering(event);
           break; 
       case 'waiting':
             this.state.isBuffering = true;
             this.isBuffering(event);
-            break; 
+            break;  
       case 'canplay':
         this.state.duration = this.audioObj.duration;
         this.state.readableDuration = this.formatTime(this.state.duration);
@@ -141,6 +149,7 @@ export class AudioService {
         break;
       case 'playing':
         this.state.playing = true;
+        this.isBuffering(event);
         break;
       case 'pause':
         this.state.playing = false;
@@ -175,7 +184,8 @@ export class AudioService {
       canplay: false,
       error: false,
       isMute: false,
-      isBuffering:false
+      isBuffering:false,
+      progressBar:''
     };
   }
 
@@ -191,14 +201,66 @@ export class AudioService {
     alert('error event');
   } 
 
-  isBuffering(event:any):void{ 
-    if(event.type === 'waiting' || event.type === 'loadstart'){
-      this.state.isBuffering = true;
+  isBuffering(event:any):void{   
+  //   let fileReader = new FileReader();
+  //   fetch(this.audioObj.src 
+  //     , {mode: 'no-cors',
+  //       method:'GET',   
+  //       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+  //       credentials: 'same-origin', // include, *same-origin, omit
+  //    /*   headers: {
+  //         'Content-Type': 'application/json'
+  //         'Content-Type': 'application/x-www-form-urlencoded',
+  //       }, */
+  //       redirect: 'follow', // manual, *follow, error
+  //       referrerPolicy: 'no-referrer'
+        
+  //     })
+  //    .then(resp => resp.blob())
+  //  .then((blob) =>  {
+
+  //     fileReader.onload = (songEvent) => {
+  //       debugger;
+  //      }
+
+  //       fileReader.readAsArrayBuffer(blob)
+  //     }
+  //  )
+//    const Data = this.audioObj.buffered && this.audioObj.buffered.length ? (this.audioObj.buffered.end(0) || 0) :  0;
+    
+      // if(event.type === 'progress'){
+      //    this.getFullSongLoadPercentProg();
+      // }
+
+    if(event.type === 'waiting' ){ 
+      this.state.isBuffering = true; 
+     // this.getWaitingModePercentProg();
     }
+    // else if(event.type === 'playing' ){
+    //   this.getWaitingModePercentProg();
+    //   this.state.isBuffering = false;
+    // }
     else{
       this.state.isBuffering = false;
     }
     this.stateChange.next(this.state);
+  } 
+
+
+
+  getFullSongLoadPercentProg() {  
+    var endBuf = this.audioObj.buffered.end(0); 
+    var soFar = ((endBuf / this.audioObj.duration) * 100).toFixed(3);
+    console.log(soFar + '%');
+  } 
+
+  getWaitingModePercentProg() {  
+    if(this.audioObj.buffered.length > 0){
+      debugger;
+    var endBuf = this.audioObj.buffered.end(0); 
+    var soFar = ((endBuf / this.audioObj.duration) * 100).toFixed(3);
+    console.log(soFar + '%');
+    }
   } 
 
 }

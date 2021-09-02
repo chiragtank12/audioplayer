@@ -11,16 +11,15 @@ import { CloudService } from './cloud.service';
 export class GlobalPlayerService  {
   files: Array<any> = []; 
   state: StreamState;
-    currentFile: any = {};
-  // /currentFile: any; 
+  currentFile: any = {}; 
+  isSuffuleOn =false; 
 
-  
   autoTicks = false;  
   max = 100;
   min = 0; 
   step = 1;
   thumbLabel = true;
-  volumeUpDownNumber = 0; 
+  volumeUpDownNumber = 50; 
   tickInterval = 1;
 
   constructor(private audioService: AudioService, cloudService: CloudService,
@@ -57,7 +56,8 @@ export class GlobalPlayerService  {
 
   openFile(file, index, isDefault?:boolean) {  
     this.currentFile = { index, file }; 
-      this.audioService.stop(); 
+    this.audioService.stop(); 
+
     this.audioService.currentSongIndex = index;
     this.audioService.lastSongIndex = ( this.files.length!  ? (this.files.length - 1 ) : 0);
     this.playStream(file.url, isDefault);
@@ -118,18 +118,10 @@ export class GlobalPlayerService  {
     this.audioService.unmute();
   }
 
-  // onChangeVolumeControl(volumeUpDownNumber:number){ 
-  // //  const volumeUpDownNumber = event.value || 0; 
-  //   if(volumeUpDownNumber === 0){
-  //     this.muteAudio();
-  //   }
-  //   else{ 
-  //     this.audioService.voulumControl(volumeUpDownNumber);
-  //   } 
-  // }
+ 
   onChangeVolumeControl(event: MatSliderChange){  
     if(this.volumeUpDownNumber === 0){
-      this.muteAudio();
+      this.muteAudio(); 
     }
     else{ 
       this.audioService.voulumControl(this.volumeUpDownNumber);
@@ -137,6 +129,14 @@ export class GlobalPlayerService  {
   }
 
 
+  playSongAsSuffle(){
+    if(this.isSuffuleOn){
+      const songIndex = Math.ceil(Math.random() *  this.files.length );
+      const file = this.files[songIndex];
+      this.openFile(file, songIndex);
+    }
+  }
 
+ 
   
 }
